@@ -81,6 +81,7 @@ jobs:
         dotnet: true
         haskell: true
         large-packages: true
+        docker-images: true
         swap-storage: true
 
     - name: 下载固件源码
