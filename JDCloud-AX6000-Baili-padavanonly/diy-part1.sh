@@ -19,5 +19,5 @@
 #git clone https://github.com/messense/aliyundrive-webdav package/messense
 
 git clone https://github.com/destan19/OpenAppFilter package/OpenAppFilter
-git clone https://github.com/kenzok8/openwrt-package package/1i
+git clone https://github.com/kenzok8/openwrt-packages package/1i
 git clone https://github.com/kenzok8/small package/2i
