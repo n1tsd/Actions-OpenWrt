@@ -40,8 +40,8 @@ env:
   ##因为是两个设备，所以手动设置上传时候的打包名称和tag名称UPLOAD_TAG_NAME
   OPENWRT_NAME: padavanonly
   UPLOAD_TAG_NAME: rax3000m-nand_xr30-nand
-  REPO_URL: https://github.com/padavanonly/immortalwrt-mt798x-24.10
-  REPO_BRANCH: 2410
+  REPO_URL: https://github.com/padavanonly/immortalwrt-mt798x-6.6
+  REPO_BRANCH: openwrt-24.10-6.6
   FEEDS_CONF: RAX3000M-NAND_XR30-NAND-padavanonly/feeds.conf.default
   CONFIG_FILE: RAX3000M-NAND_XR30-NAND-padavanonly/.mtwifi-cfg.config
   DIY_P1_SH: RAX3000M-NAND_XR30-NAND-padavanonly/diy-part1.sh
