@@ -18,15 +18,26 @@ rm -rf feeds/packages/net/{alist,adguardhome,mosdns,xray*,v2ray*,v2ray*,sing*,sm
 rm -rf feeds/packages/utils/v2dat
 rm -rf feeds/packages/lang/golang
 ##----------------------------
-git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
+git clone https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
 ###
-##-----------------Add OpenClash dev core------------------
-curl -sL -m 30 --retry 2 https://raw.githubusercontent.com/vernesong/OpenClash/core/master/dev/clash-linux-arm64.tar.gz -o /tmp/clash.tar.gz
-tar zxvf /tmp/clash.tar.gz -C /tmp >/dev/null 2>&1
-chmod +x /tmp/clash >/dev/null 2>&1
+##-----------------Add OpenClash dev core (Mihomo Meta, Latest)------------------
+# Fetch latest version from GitHub API
+LATEST_TAG=$(curl -sL -m 30 --retry 3 https://api.github.com/repos/MetaCubeX/mihomo/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//')
+if [ -z "$LATEST_TAG" ]; then
+    echo "Failed to fetch latest version, using fallback v1.19.15"
+    LATEST_TAG=1.19.15
+fi
+VERSION=v${LATEST_TAG}
+# Download and install
+curl -sL -m 30 --retry 3 https://github.com/MetaCubeX/mihomo/releases/download/${VERSION}/mihomo-linux-arm64-v${LATEST_TAG}.gz -o /tmp/mihomo.gz
+gzip -d /tmp/mihomo.gz >/dev/null 2>&1
+chmod +x /tmp/mihomo >/dev/null 2>&1
 mkdir -p feeds/luci/applications/luci-app-openclash/root/etc/openclash/core
-mv /tmp/clash feeds/luci/applications/luci-app-openclash/root/etc/openclash/core/clash >/dev/null 2>&1
-rm -rf /tmp/clash.tar.gz >/dev/null 2>&1
+mv /tmp/mihomo feeds/luci/applications/luci-app-openclash/root/etc/openclash/core/clash_meta >/dev/null 2>&1
+rm -rf /tmp/mihomo.gz >/dev/null 2>&1
+# Optional: Echo version for log
+echo "Installed Mihomo Meta Core version: ${VERSION}"
+
 ##-----------------Delete DDNS's examples-----------------
 sed -i '/myddns_ipv4/,$d' feeds/packages/net/ddns-scripts/files/etc/config/ddns
 ##-----------------Manually set CPU frequency for MT7981B-----------------
