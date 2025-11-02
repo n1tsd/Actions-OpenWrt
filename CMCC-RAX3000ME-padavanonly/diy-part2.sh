@@ -19,6 +19,32 @@ rm -rf feeds/packages/utils/v2dat
 rm -rf feeds/packages/lang/golang
 ##----------------------------
 git clone https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
+(cat << 'EOF'
+--- Makefile	2025-11-02 06:50:46.952052786 +0000
++++ Makefile	2025-11-02 06:50:46.952156980 +0000
+@@ -45,17 +45,17 @@ 
+ 
+ ifeq ($(HOST_ARCH),x86_64)
+ 	PKG_ARCH:=amd64
+-	SHA256:=b945ae2bb5db01a0fb4786afde64e6fbab50b67f6fa0eb6cfa4924f16a7ff1eb
++	BOOTSTRAP_HASH:=999805bed7d9039ec3da1a53bfbcafc13e367da52aa823cb60b68ba22d44c616
+ endif
+ 
+ ifeq ($(HOST_ARCH),aarch64)
+ 	PKG_ARCH:=arm64
+-	SHA256:=4e15ab37556e979181a1a1cc60f6d796932223a0f5351d7c83768b356f84429b
++	BOOTSTRAP_HASH:=c15fa895341b8eaf7f219fada25c36a610eb042985dc1a912410c1c90098eaf2
+ endif
+ 
+-BOOTSTRAP_SOURCE:=go1.20.6.linux-$(PKG_ARCH).tar.gz
++BOOTSTRAP_SOURCE:=go1.22.6.linux-$(PKG_ARCH).tar.gz
+ BOOTSTRAP_SOURCE_URL:=$(GO_SOURCE_URLS)
+-BOOTSTRAP_HASH:=$(SHA256)
++BOOTSTRAP_HASH:=$(BOOTSTRAP_HASH)
+ 
+ BOOTSTRAP_BUILD_DIR:=$(HOST_BUILD_DIR)/.go_bootstrap
+EOF
+) | patch -p0 feeds/packages/lang/golang/golang/Makefile
 ###
 ##-----------------Add OpenClash dev core (Mihomo Meta, Latest)------------------
 # Fetch latest version from GitHub API
